@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
-# coding=utf-8
+#!/bin/python3
+#coding=utf-8
 
 from build import Builder
 
-build_dir="/home/gavin/github/drone"
-#build_dir="/home/gavin/tmp/test_project"
+build_dir="/home/wlsuser/gavin/branches/integration_CM/WBEService"
 b=Builder(build_dir)
 b.create_docker_dir()
 b.create_docker_file()

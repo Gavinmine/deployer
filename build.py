@@ -12,12 +12,14 @@ from docker import Client
 class Builder:
 
     def __init__(self, workdir, yaml_file=".drone.yml"):
-        self.__base_build_docker_dir = "/home/gavin/tmp/build_docker"
+        self.__base_build_docker_dir = "/home/wlsuser/gavin/tmp/build_docker"
         self.workspace = workdir
         self.yaml_file = path.join(workdir, yaml_file)
         self.ydata, self.is_err = load_yaml(self.yaml_file)
         self.cli = Client(base_url=BASE_URL)
         self.errmsg=''
+        #can not have number
+        self.image_name = 'mytest'
 
 
     def create_docker_dir(self):
@@ -34,7 +36,7 @@ class Builder:
             self.is_err = True
             self.errmsg = "mkdir %s error"%(self.build_docker_dir)
 
-        self.image_name = folder_name
+        #self.image_name = folder_name
 
 
     def create_docker_file(self):
@@ -91,6 +93,8 @@ class Builder:
 
         self.__remove_self_image()
 
+        print("PATH:", self.build_docker_dir)
+        print("tag name:", self.image_name)
         docker_build = self.cli.build(path=self.build_docker_dir, rm=True, forcerm=True, tag=self.image_name, stream=True)
 
         for line in docker_build:
